@@ -1,1 +1,2 @@
-# -ReviseWithArsh-6Companies30Days-Challenge
+# 6Companies30Days-Challenge
+#Coding Solution
