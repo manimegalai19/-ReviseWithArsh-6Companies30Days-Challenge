@@ -1,0 +1,34 @@
+class Solution {
+    private long gcd(long a, long b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    private boolean IsSatisfyArray(long d1, long d2, long c1, long c2, long mid) {
+        long CountOfNotDivbyD1 = mid - (mid / d1);
+        long CountOfNotDivbyD2 = mid - (mid / d2);
+
+        long lcm = Math.abs(d1 * d2) / gcd(d1, d2);
+        long NumbersNotDivisibleByBoth = mid - (mid / lcm);
+
+        return CountOfNotDivbyD1 >= c1 && CountOfNotDivbyD2 >= c2 && NumbersNotDivisibleByBoth >= (c1 + c2);
+    }
+
+    public int minimizeSet(int divisor1, int divisor2, int uniqueCnt1, int uniqueCnt2) {
+
+        long low = 1, high = Integer.MAX_VALUE;
+        long result = Integer.MAX_VALUE;
+
+        while (low <= high) {
+            long mid = (low + high) / 2;
+
+            if (IsSatisfyArray(divisor1, divisor2, uniqueCnt1, uniqueCnt2, mid)) {
+                result = Math.min(result, mid);
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return (int) result;
+    }
+}
