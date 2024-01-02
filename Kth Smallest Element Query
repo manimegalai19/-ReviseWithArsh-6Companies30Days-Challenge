@@ -1,0 +1,30 @@
+class Solution {
+    public int[] smallestTrimmedNumbers(String[] nums, int[][] queries) {
+        int len=nums[0].length();
+        int[] res=new int[queries.length];
+        int ind=0;
+        HashMap<Integer,Node[]> map=new HashMap<>();
+
+        for(int[] query:queries){
+            if(!map.containsKey(query[1])){
+               
+            Node[] pair=new Node[nums.length];
+            for(int i=0;i<nums.length;i++){
+                String temp=nums[i].substring(len-query[1]);
+                pair[i]=new Node(i,temp);
+               }
+        Arrays.sort(pair,(a,b)->a.str.compareTo(b.str));
+               map.put(query[1],pair);
+            }
+            res[ind++]=map.get(query[1])[query[0]-1].idx;
+       }
+       return res;
+    }
+    class Node{
+        int idx;String str;
+        Node(int idx,String str){
+            this.idx=idx;
+            this.str=str;
+        }
+    }
+}
