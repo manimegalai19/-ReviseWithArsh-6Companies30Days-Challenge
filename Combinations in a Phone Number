@@ -1,0 +1,25 @@
+class Solution {
+    List<String> result=null;
+    String mapping[]=new String[]{
+        "","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    
+    public List<String> letterCombinations(String digits) {
+        result=new ArrayList<>();
+        if(digits.length()==0)return result;
+        dfs(0,digits, new StringBuilder());
+        return result;    
+    }
+    void dfs(int length,String digits,StringBuilder sb){
+        if(length==digits.length()){
+            result.add(sb.toString());
+            return;
+        }
+        char c=digits.charAt(length);
+        String str=mapping[c-'0'];
+        for(char ch:str.toCharArray()){
+            sb.append(ch);
+            dfs(length+1,digits,sb);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+}
